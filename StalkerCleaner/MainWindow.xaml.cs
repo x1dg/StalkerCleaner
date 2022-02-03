@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -56,30 +58,47 @@ namespace StalkerCleaner
 
         private void SelectTaskClick(object sender, RoutedEventArgs e)
         {
-            switch (_dialogComboBox.SelectedIndex)
+            try
             {
-                case 0:
-                    ShowProgressDialogClearDirectories();
-                    break;
-                case 1:
-                    ShowProgressDialogClearScripts();
-                    break;
-                case 2:
-                    ShowProgressDialogClearConfigs();
-                    break;
-                case 3:
-                    ShowProgressDialogClearSounds();
-                    break;
-                case 4:
-                    ShowFolderBrowserDialog();
-                    break;
-                case 5:
-                    ShowOpenFileDialog();
-                    break;
-                case 6:
-                    ShowSaveFileDialog();
-                    break;
+                switch (_dialogComboBox.SelectedIndex)
+                {
+                    case 0:
+                        ShowProgressDialogClearDirectories();
+                        break;
+                    case 1:
+                        ShowProgressDialogClearScripts();
+                        break;
+                    case 2:
+                        ShowProgressDialogClearConfigs();
+                        break;
+                    case 3:
+                        ShowProgressDialogClearSounds();
+                        break;
+                    case 4:
+                        ShowFolderBrowserDialog();
+                        break;
+                    case 5:
+                        ShowOpenFileDialog();
+                        break;
+                    case 6:
+                        ShowSaveFileDialog();
+                        break;
+                }
             }
+            catch (Exception exception)
+            {
+                var now = DateTime.Now;
+                if (!Directory.Exists("logs"))
+                {
+                    Directory.CreateDirectory("logs");
+                }
+                
+                string logName = $"logs/log-{now:yy-MM-dd}_{now.Hour}-{now.Minute}-{now.Second}";
+                File.AppendAllLines(logName, new[] {exception.InnerException?.Message, exception.Message});
+                Process.Start("notepad.exe", logName);
+                throw;
+            }
+            
         }
 
         private void ShowTaskDialog()
