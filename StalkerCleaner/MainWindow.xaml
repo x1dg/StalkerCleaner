@@ -1,0 +1,21 @@
+﻿<Window x:Class="StalkerCleaner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        Title="Stalker Cleaner" Height="160" Width="405" MinHeight="160" MinWidth="421" MaxHeight="79" Background="{x:Static SystemColors.ControlBrush}"
+        Icon="Resources/icon.ico">
+    <Grid Margin="0,0,0,19">
+        <Button Height="23" Margin="0,27,297,0" Padding="8,0" HorizontalAlignment="Right" x:Name="_selectGamedata" VerticalAlignment="Top" IsDefault="True" Click="SelectFolderClick" Content="gamedata.."/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="133,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" IsEnabled="False" Text="{Binding GamedataPath, RelativeSource={RelativeSource AncestorType=Window}}"/>
+        <ComboBox SelectedIndex="0" Margin="30,79,139,0" Height="23"  Name="_dialogComboBox" VerticalAlignment="Top" IsEnabled="False">
+            <ComboBox.Items>
+                <ComboBoxItem>Почистить пустоту!</ComboBoxItem>
+                <ComboBoxItem>Почистить скрипты!</ComboBoxItem>
+                <ComboBoxItem>Почистить конфиги!</ComboBoxItem>
+                <ComboBoxItem>Почистить звуки!</ComboBoxItem>
+            </ComboBox.Items>
+        </ComboBox>
+        <Button Height="23" Margin="0,79,36,0" Padding="8,0" HorizontalAlignment="Right" Name="_showDialogButton" VerticalAlignment="Top" IsDefault="True" IsEnabled="False" Click="SelectTaskClick">Поехали</Button>
+    </Grid>
+</Window>
